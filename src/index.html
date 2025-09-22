@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windows Server 2025 - Mechanical Academy</title>
+
+    <!-- Fonts e ícones -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuração Tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+            },
+            colors: {
+              "primary-blue": "#1e40af",
+              "secondary-blue": "#3b82f6",
+              "accent-blue": "#60a5fa",
+              "dark-blue": "#1e3a8a",
+              "cyan-accent": "#06b6d4",
+              "dark-bg": "#0f172a",
+              "card-bg": "rgba(30, 58, 138, 0.3)",
+              "card-border": "rgba(59, 130, 246, 0.2)",
+              "medium-blue": "#1e3a5f",
+              "light-blue": "#2563eb",
+              "cyan-blue": "#06b6d4",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Script Accordion FAQ -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".accordion").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector(".icon");
+            const text = btn.querySelector("span:not(.icon)");
+
+            answer.classList.toggle("max-h-[500px]");
+            answer.classList.toggle("pt-4");
+            answer.classList.toggle("pb-4");
+            btn.classList.toggle("text-sky-400");
+
+            if (icon.textContent === "+") {
+              icon.textContent = "×";
+              icon.classList.add("text-sky-400");
+              text.classList.add("text-sky-400");
+            } else {
+              icon.textContent = "+";
+              icon.classList.remove("text-sky-400");
+              text.classList.remove("text-sky-400");
+            }
+          });
+        });
+      });
+    </script>
+
+    <!-- Estilos customizados -->
+    <style>
+      /* Efeitos de estatísticas */
+      .stat-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+      .stat-number::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid;
+        border-image: linear-gradient(
+            135deg,
+            #002037 0%,
+            rgba(0, 163, 235, 0.05) 8%,
+            rgba(0, 163, 235, 0.5) 18%,
+            rgba(0, 163, 235, 0.5) 82%,
+            rgba(0, 163, 235, 0.05) 92%,
+            #002037 100%
+          )
+          1;
+        border-radius: 6px;
+        z-index: -1;
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+      .stat-number::after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        left: -6px;
+        width: calc(100% + 12px);
+        height: calc(100% + 6px);
+        background: linear-gradient(
+          135deg,
+          #002037 0%,
+          rgba(0, 163, 235, 0.03) 8%,
+          rgba(0, 163, 235, 0.18) 50%,
+          rgba(0, 163, 235, 0.03) 92%,
+          #002037 100%
+        );
+        border-radius: 8px;
+        z-index: -2;
+        opacity: 0.15;
+        filter: blur(1.5px);
+        animation: glow 2s ease-in-out infinite alternate;
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+
+      /* Badge de tempo */
+      .time-badge {
+        position: relative;
+        background-image: url("./IconContainer.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Shimmer effect botão play */
+      .shimmer-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .shimmer-effect::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* Responsividade tablet/mobile */
+      @media (max-width: 1023.98px) {
+        html {
+          font-size: 15px;
+        }
+        h1 {
+          font-size: clamp(1.6rem, 6vw, 2.25rem);
+          line-height: 1.2;
+        }
+        h2 {
+          font-size: clamp(1.25rem, 5vw, 1.75rem);
+        }
+        h3 {
+          font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+        }
+        p,
+        li {
+          font-size: clamp(0.9rem, 3.6vw, 1rem);
+        }
+        .min-h-[85vh] {
+          min-height: 70vh !important;
+        }
+        .py-16 {
+          padding-top: 2.5rem !important;
+          padding-bottom: 2.5rem !important;
+        }
+        .px-8 {
+          padding-left: 1.25rem !important;
+          padding-right: 1.25rem !important;
+        }
+        .py-7 {
+          padding-top: 1rem !important;
+          padding-bottom: 1rem !important;
+        }
+        .gap-8 {
+          gap: 1rem !important;
+        }
+        .gap-6 {
+          gap: 0.875rem !important;
+        }
+        .p-6 {
+          padding: 1rem !important;
+        }
+        .stat-number {
+          font-size: 1.75rem !important;
+        }
+        .min-w-[320px] {
+          min-width: 260px !important;
+        }
+      }
+
+      @media (max-width: 639.98px) {
+        html {
+          font-size: 14px;
+        }
+        .min-h-[85vh] {
+          min-height: 60vh !important;
+        }
+        h1 {
+          font-size: clamp(1.4rem, 8vw, 2rem);
+        }
+        h2 {
+          font-size: clamp(1.15rem, 6.5vw, 1.6rem);
+        }
+        h3 {
+          font-size: clamp(1rem, 5.5vw, 1.25rem);
+        }
+        p,
+        li {
+          font-size: clamp(0.88rem, 3.9vw, 0.98rem);
+        }
+        .stat-number {
+          font-size: 1.5rem !important;
+        }
+        .time-badge {
+          width: 48px;
+          height: 48px;
+          font-size: 0.8rem;
+        }
+        .py-16 {
+          padding-top: 1.75rem !important;
+          padding-bottom: 1.75rem !important;
+        }
+        .px-6 {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+        }
+        .min-w-[320px] {
+          min-width: 220px !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-inter bg-dark-bg text-white overflow-x-hidden">
+    <!-- Hero Section -->
+    <!DOCTYPE html>
+    <html lang="pt">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Windows Server 2025 Section</title>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <style>
+          .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+          }
+
+          .shimmer-effect::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.3),
+              transparent
+            );
+            animation: shimmer 2s infinite;
+          }
+
+          @keyframes shimmer {
+            0% {
+              left: -100%;
+            }
+            100% {
+              left: 100%;
+            }
+          }
+
+          .play-icon {
+            width: 0;
+            height: 0;
+            margin-right: 8px;
+          }
+        </style>
+      </head>
+      <body>
+        <section class="min-h-[85vh] grid grid-cols-1 md:grid-cols-2">
+          <!-- Coluna Esquerda (texto) -->
+          <div
+            class="relative flex items-center justify-center bg-[url('./images/ban.jpg')] bg-cover bg-center"
+          >
+            <!-- Overlay escuro -->
+            <div
+              class="absolute inset-0 bg-[#001F2D] bg-[url('./images/container.png')]"
+            ></div>
+
+            <!-- Card de Conteúdo -->
+            <div class="relative z-10 max-w-lg p-6 md:p-8 text-white">
+              <img src="../images/logo.png" alt="Logo" class="h-12 mb-4" />
+
+              <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-6">
+                Programa de Formação em Windows Server Hybrid Administrator
+              </h1>
+
+              <p class="text-gray-300 text-xs md:text-sm mb-8 leading-relaxed">
+                Capacitação em administração, configuração e otimização de
+                ambientes de servidores híbridos com tecnologias Microsoft.
+              </p>
+
+              <!-- Botões -->
+              <div class="flex flex-wrap gap-4">
+                <button
+                  class="border border-white px-6 py-3 rounded-md text-white hover:bg-white hover:text-black transition"
+                >
+                  1999.00 MNZ
+                </button>
+                <button
+                  class="bg-sky-500 px-6 py-3 rounded-md font-medium hover:bg-sky-600 transition"
+                >
+                  Iniciar curso
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna Direita (imagem com botão) -->
+          <div
+            class="relative flex items-center justify-center bg-[url('../images/banner.png')] bg-cover bg-center min-h-[380px] sm:min-h-[420px] md:h-auto"
+          >
+            <!-- Botão com backdrop blur -->
+            <div
+              class="absolute bottom-2 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 w-full flex justify-center px-4"
+            >
+              <button
+                class="bg-sky-500/70 hover:bg-sky-600 transition backdrop-blur-md rounded-full overflow-hidden shimmer-effect flex items-center justify-center relative text-white font-thin w-[90%] sm:w-[80%] text-xs sm:text-sm py-2 sm:py-2.5 md:min-w-[400px] md:max-w-md md:text-xs md:py-2.5"
+              >
+                <div class="play-icon mr-2"></div>
+                <span class="tracking-wide text-center">
+                  <i class="fa-solid fa-play"></i> Dominando a Política de Grupo
+                  no Windows Server 2025
+                </span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section
+          class="min-h-[300px] py-16 px-5 flex items-center justify-center"
+          style="
+            background: linear-gradient(
+              90deg,
+              #27394b 0%,
+              #27394b 20%,
+              #5a8cbe 50%,
+              #27394b 80%,
+              #27394b 100%
+            );
+          "
+        >
+          <div
+            class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl w-full text-white"
+          >
+            <div
+              class="bg-[#002037] border border-blue-400/20 rounded-md px-8 py-7 text-center relative backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-400/40 hover:shadow-2xl hover:shadow-blue-400/10"
+            >
+              <div
+                class="stat-number text-4xl font-bold text-white mb-3 inline-block px-6 py-1"
+              >
+                200+
+              </div>
+              <div class="text-white text-base font-normal leading-relaxed">
+                Profissionais Formados
+              </div>
+            </div>
+            <div
+              class="bg-[#002037] border border-blue-400/20 rounded-md px-8 py-7 text-center relative backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-400/40 hover:shadow-2xl hover:shadow-blue-400/10"
+            >
+              <div
+                class="stat-number text-4xl font-bold text-white mb-3 inline-block px-6 py-1"
+              >
+                48h
+              </div>
+              <div class="text-white text-base font-normal leading-relaxed">
+                Horas do Curso
+              </div>
+            </div>
+            <div
+              class="bg-[#002037] border border-blue-400/20 rounded-md px-8 py-7 text-center relative backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-400/40 hover:shadow-2xl hover:shadow-blue-400/10"
+            >
+              <div
+                class="stat-number text-4xl font-bold text-white mb-3 inline-block px-6 py-1"
+              >
+                5
+              </div>
+              <div class="text-white text-base font-normal leading-relaxed">
+                Módulos Principais
+              </div>
+            </div>
+            <div
+              class="bg-[#002037] border border-blue-400/20 rounded-md px-8 py-7 text-center relative backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-400/40 hover:shadow-2xl hover:shadow-blue-400/10"
+            >
+              <div
+                class="stat-number text-4xl font-bold text-white mb-3 inline-block px-6 py-1"
+              >
+                5+
+              </div>
+              <div class="text-white text-base font-normal leading-relaxed">
+                Projectos Reais
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conteúdo principal -->
+        <div
+          class="relative z-10 py-16 w-full min-h-[400px] flex items-center justify-center overflow-hidden bg-dark-bg"
+          style="
+            background: url('../images/Frame.png') center center / cover
+              no-repeat;
+          "
+        >
+          <div class="max-w-6xl w-full px-4 sm:px-6 lg:px-0 mx-auto">
+            <!-- Título principal -->
+            <div class="text-center mb-16">
+              <h2
+                class="text-3xl lg:text-xl xl:text-4xl font-bold text-white mb-4"
+              >
+                Porquê Escolher a Mechanical Academy?
+              </h2>
+              <p class="text-base lg:text-sm text-blue-200 max-w-2xl mx-auto">
+                Desbloqueia o teu futuro em infraestrutura com uma formação
+                feita para o mundo real.
+              </p>
+            </div>
+
+            <!-- Grid de cards -->
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+            >
+              <!-- Card 1 -->
+              <div
+                class="bg-slate-800 bg-opacity-40 backdrop-blur-sm border border-slate-600 border-opacity-30 rounded-xl p-6 lg:p-8 text-center hover:bg-opacity-50 transition-all duration-300 group"
+              >
+                <div
+                  class="w-14 h-14 lg:w-16 lg:h-16 bg-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-300"
+                >
+                  <svg
+                    class="w-7 h-7 lg:w-8 lg:h-8 text-slate-800"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg lg:text-base font-semibold text-white mb-4">
+                  Aulas Teóricas e Práticas
+                </h3>
+                <p class="text-sm lg:text-sm text-blue-200 leading-relaxed">
+                  Combinação de palestras, demonstrações ao vivo e exercícios
+                  práticos para uma aprendizagem completa.
+                </p>
+              </div>
+
+              <!-- Card 2 -->
+              <div
+                class="bg-slate-800 bg-opacity-40 backdrop-blur-sm border border-slate-600 border-opacity-30 rounded-xl p-6 lg:p-8 text-center hover:bg-opacity-50 transition-all duration-300 group"
+              >
+                <div
+                  class="w-14 h-14 lg:w-16 lg:h-16 bg-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-300"
+                >
+                  <svg
+                    class="w-7 h-7 lg:w-8 lg:h-8 text-slate-800"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg lg:text-base font-semibold text-white mb-4">
+                  Projetos Práticos
+                </h3>
+                <p class="text-sm lg:text-sm text-blue-200 leading-relaxed">
+                  Oportunidade de aplicar conhecimentos em projetos reais,
+                  incentivando a aprendizagem ativa.
+                </p>
+              </div>
+
+              <!-- Card 3 -->
+              <div
+                class="bg-slate-800 bg-opacity-40 backdrop-blur-sm border border-slate-600 border-opacity-30 rounded-xl p-6 lg:p-8 text-center hover:bg-opacity-50 transition-all duration-300 group md:col-span-2 lg:col-span-1"
+              >
+                <div
+                  class="w-14 h-14 lg:w-16 lg:h-16 bg-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-105 transition-transform duration-300"
+                >
+                  <svg
+                    class="w-7 h-7 lg:w-8 lg:h-8 text-slate-800"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6L23 9l-11-6zM18.82 9L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg lg:text-base font-semibold text-white mb-4">
+                  Certificação Reconhecida
+                </h3>
+                <p class="text-sm lg:text-sm text-blue-200 leading-relaxed">
+                  Certificado ao final do curso, comprovando as habilidades em
+                  administração híbrida.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="bg-black/50 py-16 px-6">
+          <div class="max-w-6xl mx-auto">
+            <!-- Título principal -->
+            <div class="text-center mb-12">
+              <h2 class="text-4xl lg:text-4xl font-bold text-white mb-6">
+                O Que Você Aprenderá Conosco?
+              </h2>
+              <p
+                class="text-gray-300 text-base lg:text-sm max-w-4xl mx-auto leading-relaxed"
+              >
+                Este programa de formação em
+                <strong>Windows Server Hybrid Administrator</strong> foi
+                desenvolvido para capacitar os participantes com as habilidades
+                necessárias para administrar, configurar e otimizar ambientes de
+                servidores híbridos utilizando tecnologias Microsoft.
+              </p>
+            </div>
+
+            <!-- Primeira linha - 3 cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <!-- Módulo 1 -->
+              <div class="border border-slate-700 rounded-lg p-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="bg-[url('../icon.png')] bg-cover bg-center w-16 text-xl font-bold text-white time-badge"
+                  >
+                    6H
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">
+                      Introdução à Computação em Nuvem
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-xs leading-relaxed">
+                    Fundamentos de cloud computing, modelos de serviço (IaaS,
+                    PaaS, SaaS), Windows Server Híbrido e arquiteturas de
+                    infraestrutura híbrida.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Módulo 2 -->
+              <div class="border border-slate-700 rounded-lg p-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="bg-[url('../icon.png')] bg-cover bg-center w-16 font-bold text-white time-badge"
+                  >
+                    12H
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">
+                      Gerenciamento de Servidores Windows Server
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-xs leading-relaxed">
+                    Instalação e configuração do Windows Server 2019/2022,
+                    Active Directory híbrido, Azure AD e integração com Azure.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Módulo 3 -->
+              <div class="border border-slate-700 rounded-lg p-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="bg-[url('../icon.png')] bg-cover bg-center w-16 text-xl font-bold text-white time-badge"
+                  >
+                    10H
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">
+                      Gerenciamento de Rede e Armazenamento
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-xs leading-relaxed py-6">
+                    Configuração de DHCP, DNS, VPN, armazenamento local/Azure,
+                    backup e recuperação de desastres em ambientes híbridos.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segunda linha - 2 cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <!-- Módulo 4 - ocupa 1/3 do espaço -->
+              <div class="border border-slate-700 rounded-lg p-6">
+                <div class="flex items-start gap-5">
+                  <div
+                    class="bg-[url('../icon.png')] bg-cover bg-center w-16 text-xl font-bold text-white time-badge"
+                  >
+                    8H
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">
+                      Provisionamento de Desktops Virtuais
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-xs leading-relaxed">
+                    Implementação do Azure Virtual Desktop, publicação de
+                    aplicativos, gestão de usuários e segurança de ambientes
+                    virtuais.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card de Call to Action - ocupa 2/3 do espaço -->
+              <div
+                class="bg-[#007DB5] bg-[url('../images/Container.png')] rounded-lg p-6 md:col-span-2 flex flex-col md:flex-row items-center md:items-start justify-between text-center md:text-left gap-6"
+              >
+                <!-- Conteúdo -->
+                <div class="">
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="bg-[url('../icon.png')] bg-cover bg-center w-16 text-xl font-bold text-white time-badge"
+                    >
+                      3H
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-white mb-3">
+                        Domine a Administração Híbrida
+                      </h3>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-dark text-xs leading-relaxed">
+                      Aprenda a gerenciar ambientes locais e na nuvem com
+                      Windows Server Hybrid. Torne-se um especialista em
+                      infraestruturas híbridas.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Botão -->
+                <div class="flex-shrink-0 mt-4 md:mt-0">
+                  <button
+                    class="bg-white text-black font-medium px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    Iniciar curso
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Container -->
+        <div class="bg-[#002037] bg-[url('./cont.png')] min-h-screen p-16">
+          <!-- Outer Border -->
+          <div class="border border-cyan-blue p-8 max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+              <h1
+                class="text-white text-4xl md:text-3xl font-semibold mb-6 leading-tight"
+              >
+                Sim! É Aqui Onde o Seu Talento Encontra Uma Oportunidade
+              </h1>
+              <p
+                class="text-gray-300 text-lg md:text-xs max-w-4xl mx-auto mb-8 leading-relaxed"
+              >
+                No mundo corporativo moderno, profissionais com conhecimento em
+                Windows Server têm uma ampla gama de áreas para aplicar suas
+                habilidades. Este sistema é uma base fundamental para
+                infraestruturas de TI seguras, escaláveis e eficientes. Veja
+                algumas das principais áreas onde você pode brilhar.
+              </p>
+              <button
+                class="bg-cyan-blue text-white hover:bg-white hover:text-cyan-blue py-3 px-8 rounded-lg transition-colors duration-300 text-sm"
+              >
+                Porquê Trabalhar com a Mechanical Academy?
+              </button>
+            </div>
+
+            <!-- Blue Divider Line -->
+            <div class="w-full h-px bg-cyan-blue mb-12"></div>
+
+            <!-- First Content Section - Text Left, Image Right -->
+            <div class="grid md:grid-cols-2 gap-12 mb-12 items-center">
+              <div class="text-white">
+                <h2 class="text-cyan-blue text-2xl font-medium mb-6">
+                  Profissionais de TI e Administradores de Rede
+                </h2>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                  Este programa capacita profissionais de TI e administradores
+                  de rede com as habilidades necessárias para gerenciar
+                  ambientes híbridos, integrando infraestruturas locais e na
+                  nuvem utilizando tecnologias Microsoft. Ideal para quem deseja
+                  especializar-se em Windows Server Híbrido.
+                </p>
+              </div>
+              <div class="flex justify-center">
+                <div
+                  class="w-full h-80 bg-cover bg-center relative overflow-hidden"
+                  style="background-image: url('../images/cisco.jpg')"
+                >
+                  <div class="text-center text-white"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blue Divider Line -->
+            <div class="w-full h-px bg-cyan-blue mb-12"></div>
+
+            <!-- Second Content Section - Image Left, Text Right -->
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+              <div class="flex justify-center order-2 md:order-1">
+                <div
+                  class="w-full h-80 bg-cover bg-center relative overflow-hidden"
+                  style="background-image: url('../images/sky.jpg')"
+                >
+                  <div
+                    class="absolute inset-0 bg-gradient-to-br from-medium-blue/80 to-dark-blue/80 flex items-center justify-center"
+                  >
+                    <div class="text-center text-white"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-white order-1 md:order-2">
+                <h2 class="text-cyan-blue text-2xl font-medium mb-6">
+                  Estudantes e Especialização em Tecnologia
+                </h2>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                  Destina-se a estudantes de tecnologia da informação e áreas
+                  relacionadas que buscam especializar-se em Windows Server
+                  Híbrido. Uma oportunidade para adquirir conhecimentos práticos
+                  em administração de sistemas híbridos e destacar-se no mercado
+                  de trabalho.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <section
+          class="relative py-16 px-6 overflow-hidden"
+          style="
+            background: url('../images/CTA.png') center center / cover no-repeat;
+          "
+        >
+          <!-- Content Container -->
+          <div class="max-w-6xl mx-auto relative z-10">
+            <div
+              class="flex flex-col lg:flex-row items-center lg:items-start justify-between text-center lg:text-left gap-8"
+            >
+              <!-- Left Content -->
+              <div class="flex-1">
+                <!-- Title -->
+                <h2
+                  class="text-3xl sm:text-3xl md:text-3xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+                >
+                  Torne-se um Windows Server Hybrid Administrator
+                </h2>
+
+                <!-- Description -->
+                <p
+                  class="text-blue-100 text-sm sm:text-sm leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                >
+                  Domine a administração de ambientes híbridos com Windows
+                  Server e Azure. Este programa de 48 horas prepara-te para
+                  gerir infraestruturas locais e na nuvem, com foco em
+                  segurança, integração e otimização de sistemas. Ideal para
+                  profissionais que desejam especializar-se em uma das áreas
+                  mais valorizadas do mercado.
+                </p>
+              </div>
+
+              <!-- Right Button -->
+              <div class="flex-shrink-0 mt-6 lg:mt-0">
+                <button
+                  class="bg-white text-slate-800 font-semibold px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+                >
+                  Iniciar Curso
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-black/50 py-16 px-6">
+          <div class="max-w-6xl mx-auto border border-slate-700 p-8">
+            <!-- Título -->
+            <div
+              class="text-center mb-6"
+              style="background-image: url(./images/Text.png)"
+            >
+              <h2 class="text-4xl lg:text-3xl font-bold text-white mb-4">
+                Perguntas Frequentes
+              </h2>
+              <p class="text-gray-300 text-base lg:text-xs">
+                Ainda tem dúvidas? Contacte a nossa equipa pelo email:
+                <span class="text-sky-400">MechanicalTech@exemplo.com</span>
+              </p>
+            </div>
+
+            <!-- Linha separadora -->
+            <div class="border-t border-slate-700 mb-8"></div>
+
+            <!-- Grid FAQ -->
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Coluna Esquerda -->
+              <div class="space-y-6">
+                <!-- Card 1 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        01
+                      </div>
+                      <span class="text-sm"
+                        >O que é um Windows Server Hybrid Administrator?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      É um profissional responsável por gerenciar ambientes de
+                      servidores híbridos, integrando infraestruturas locais e
+                      na nuvem utilizando tecnologias Microsoft, garantindo a
+                      segurança e otimização dos sistemas.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        02
+                      </div>
+                      <span class="text-sm"
+                        >Quais são os pré-requisitos para este curso?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Conhecimentos básicos de administração de sistemas Windows
+                      e familiaridade com serviços em nuvem. Não é necessário
+                      conhecimento prévio em Azure.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        03
+                      </div>
+                      <span class="text-sm"
+                        >Qual é a metodologia de ensino do curso?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Combinação de aulas teóricas e práticas, com palestras,
+                      demonstrações ao vivo e exercícios práticos. Os
+                      participantes aplicam os conhecimentos em projetos reais
+                      para aprendizagem ativa.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duração-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        04
+                      </div>
+                      <span class="text-sm"
+                        >Quais tópicos são abordados no plano
+                        programático?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Introdução à computação em nuvem, gestão de servidores
+                      Windows Server, rede e armazenamento, provisionamento de
+                      desktops virtuais, e monitoramento de infraestruturas
+                      híbridas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coluna Direita -->
+              <div class="space-y-6">
+                <!-- Card 5 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        05
+                      </div>
+                      <span class="text-sm"
+                        >Este curso é adequado para iniciantes em Azure?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Sim, o curso não exige conhecimento prévio em Azure.
+                      Inclui fundamentos de cloud computing e integração
+                      progressiva com serviços Azure.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        06
+                      </div>
+                      <span class="text-sm"
+                        >Qual é a carga horária total do curso?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      O programa tem duração total de 48 horas, distribuídas em
+                      5 módulos principais com conteúdo teórico e prático.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        07
+                      </div>
+                      <span class="text-sm"
+                        >Que aptidões terei ao final do curso?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Será capaz de administrar servidores Windows em ambientes
+                      híbridos, gerir recursos de rede e armazenamento,
+                      provisionar desktops virtuais e monitorar infraestruturas
+                      híbridas.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="border border-slate-700 overflow-hidden">
+                  <button
+                    class="accordion w-full text-left px-6 py-4 flex items-center justify-between gap-4 text-gray-200 transition-colors duration-500"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="bg-slate-700 px-3 py-2 font-bold text-sm">
+                        08
+                      </div>
+                      <span class="text-sm"
+                        >Para quem é recomendado este curso?</span
+                      >
+                    </div>
+                    <span
+                      class="icon text-xl font-bold transition-transform duration-500"
+                      >+</span
+                    >
+                  </button>
+                  <div
+                    class="answer max-h-0 overflow-hidden px-6 pb-0 text-gray-300 transition-all duration-500"
+                  >
+                    <p class="pl-2 pt-0 mt-3 text-xs">
+                      Para profissionais de TI, administradores de rede e
+                      estudantes que desejam especializar-se em Windows Server
+                      Híbrido e gestão de infraestruturas cloud.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="bg-[#031F34] text-white p-6">
+          <div class="container mx-auto">
+            <div class="grid gric-cols-1 lg:grid-cols-6 px-5">
+              <div class="col-span-1 lg:flex lg:items-center h-1/1">
+                <img
+                  src="../images/logo.png"
+                  alt="Mechanical Academy"
+                  class="w-40"
+                />
+              </div>
+              <div class="col-span-1 lg:col-span-5 flex flex-col">
+                <div
+                  class="w-full flex flex-col md:flex-row justify-between border-b pb-5 mb-5 border-b-gray-800"
+                >
+                  <div class="flex flex-col md:flex-row gap-5 mt-5">
+                    <a href="#">Inicio</a>
+                    <a href="#">Cursos</a>
+                    <a href="#">Termos & Condicoes</a>
+                    <a href="#">Politicas de Privacidade</a>
+                  </div>
+                  <div class="flex items-center gap-5 mt-5">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-x-twitter"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                    <i class="fab fa-youtube"></i>
+                  </div>
+                </div>
+                <p class="text-center lg:text-left">
+                  Mechanical Academy © 2025 Todos os direitos reservados.
+                  Desenvolvido do Jeito <span class="text-2xl">✓</span> pela
+                  <a
+                    href="https://mechanical.co.mz"
+                    class="text-custom-orange-1"
+                    >Mechanical Tecnologia.</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+              
+        </footer>
+      </body>
+    </html>
+  </body>
+</html>
