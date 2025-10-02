@@ -319,65 +319,66 @@
         </style>
       </head>
       <body>
-        <section class="min-h-[85vh] grid grid-cols-1 md:grid-cols-2">
-          <!-- Coluna Esquerda (texto) -->
-          <div
-            class="relative flex items-center justify-center bg-[url('./images/ban.jpg')] bg-cover bg-center"
-          >
-            <!-- Overlay escuro -->
-            <div
-              class="absolute inset-0 bg-[#001F2D] bg-[url('./images/container.png')]"
-            ></div>
+        <section class="min-h-[85vh] grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2">
+  <!-- Coluna Esquerda (texto) -->
+  <div
+    class="relative flex items-center justify-center bg-[url('./images/ban.jpg')] bg-cover bg-center"
+  >
+    <!-- Overlay escuro -->
+    <div
+      class="absolute inset-0 bg-[#001F2D] bg-[url('./images/container.png')]"
+    ></div>
 
-            <!-- Card de Conteúdo -->
-            <div class="relative z-10 max-w-lg p-6 md:p-8 text-white">
-              <img src="../images/logo.png" alt="Logo" class="h-12 mb-4" />
+    <!-- Card de Conteúdo -->
+    <div class="relative z-10 max-w-lg p-6 md:p-8 text-white">
+      <img src="../images/logo.png" alt="Logo" class="h-12 mb-4" />
 
-              <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-6">
-                Programa de Formação em Windows Server Hybrid Administrator
-              </h1>
+      <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-6">
+        Programa de Formação em Windows Server Hybrid Administrator
+      </h1>
 
-              <p class="text-gray-300 text-xs md:text-sm mb-8 leading-relaxed">
-                Capacitação em administração, configuração e otimização de
-                ambientes de servidores híbridos com tecnologias Microsoft.
-              </p>
+      <p class="text-gray-300 text-xs md:text-sm mb-8 leading-relaxed">
+        Capacitação em administração, configuração e otimização de
+        ambientes de servidores híbridos com tecnologias Microsoft.
+      </p>
 
-              <!-- Botões -->
-              <div class="flex flex-wrap gap-4">
-                <button
-                  class="border border-white px-6 py-3 rounded-md text-white hover:bg-white hover:text-black transition"
-                >
-                  1999.00 MNZ
-                </button>
-                <button
-                  class="bg-sky-500 px-6 py-3 rounded-md font-medium hover:bg-sky-600 transition"
-                >
-                  Iniciar curso
-                </button>
-              </div>
-            </div>
-          </div>
+      <!-- Botões -->
+      <div class="flex flex-wrap gap-4">
+        <button
+          class="border border-white px-6 py-3 rounded-md text-white hover:bg-white hover:text-black transition"
+        >
+          1999.00 MNZ
+        </button>
+        <button
+          class="bg-sky-500 px-6 py-3 rounded-md font-medium hover:bg-sky-600 transition"
+        >
+          Iniciar curso
+        </button>
+      </div>
+    </div>
+  </div>
 
-          <!-- Coluna Direita (imagem com botão) -->
-          <div
-            class="relative flex items-center justify-center bg-[url('../images/banner.png')] bg-cover bg-center min-h-[380px] sm:min-h-[420px] md:h-auto"
-          >
-            <!-- Botão com backdrop blur -->
-            <div
-              class="absolute bottom-2 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 w-full flex justify-center px-4"
-            >
-              <button
-                class="bg-sky-500/70 hover:bg-sky-600 transition backdrop-blur-md rounded-full overflow-hidden shimmer-effect flex items-center justify-center relative text-white font-thin w-[90%] sm:w-[80%] text-xs sm:text-sm py-2 sm:py-2.5 md:min-w-[400px] md:max-w-md md:text-xs md:py-2.5"
-              >
-                <div class="play-icon mr-2"></div>
-                <span class="tracking-wide text-center">
-                  <i class="fa-solid fa-play"></i> Dominando a Política de Grupo
-                  no Windows Server 2025
-                </span>
-              </button>
-            </div>
-          </div>
-        </section>
+  <!-- Coluna Direita (imagem com botão) -->
+  <div
+    class="relative flex items-center justify-center bg-[url('../images/banner.png')] bg-cover bg-center min-h-[380px] sm:min-h-[420px] md:min-h-[500px] lg:h-auto"
+  >
+    <!-- Botão com backdrop blur -->
+    <div
+      class="absolute bottom-2 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 w-full flex justify-center px-4"
+    >
+      <button
+        class="bg-sky-500/70 hover:bg-sky-600 transition backdrop-blur-md rounded-full overflow-hidden shimmer-effect flex items-center justify-center relative text-white font-thin w-[90%] sm:w-[80%] text-xs sm:text-sm py-2 sm:py-2.5 md:min-w-[400px] md:max-w-md md:text-xs md:py-2.5"
+      >
+        <div class="play-icon mr-2"></div>
+        <span class="tracking-wide text-center">
+          <i class="fa-solid fa-play"></i> Dominando a Política de Grupo
+          no Windows Server 2025
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
 
         <!-- Statistics Section -->
         <section
